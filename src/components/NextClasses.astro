@@ -1,0 +1,71 @@
+---
+// Upcoming class board. Rendered with the recurring pattern so it never goes stale;
+// a small script fills in the actual next dates in the visitor's browser.
+---
+<div class="board" data-next-classes>
+  <div class="board__row" style="--c:var(--t-orange)">
+    <div>
+      <div class="board__name">License to Carry (LTC)</div>
+      <div class="board__meta">8:00 am to 2:30 pm. Permitless carry training the same days.</div>
+    </div>
+    <div class="board__date" data-rule="ltc">2nd and 4th Saturday</div>
+  </div>
+  <div class="board__row" style="--c:var(--t-green)">
+    <div>
+      <div class="board__name">Level 3 requalification</div>
+      <div class="board__meta">9:00 am to 2:30 pm</div>
+    </div>
+    <div class="board__date" data-rule="requal">2nd Tuesday, most months</div>
+  </div>
+  <div class="board__row" style="--c:var(--t-blue)">
+    <div>
+      <div class="board__name">Level 2 and Level 3 security</div>
+      <div class="board__meta">Level 2 $100, Level 3 $300</div>
+    </div>
+    <div class="board__date" data-rule="security">Every other month</div>
+  </div>
+  <div class="board__row" style="--c:var(--t-red)">
+    <div>
+      <div class="board__name">Private training</div>
+      <div class="board__meta">One-on-one or small group, including basic handgun</div>
+    </div>
+    <div class="board__date">Any time<small>Scheduled with you</small></div>
+  </div>
+</div>
+<script>
+  const fmt = (d: Date) => d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+  const nth = (y: number, m: number, dow: number, n: number) => {
+    const first = new Date(y, m, 1);
+    const off = (dow - first.getDay() + 7) % 7;
+    return new Date(y, m, 1 + off + (n - 1) * 7);
+  };
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const upcoming = (fn: (y: number, m: number) => Date[], count: number) => {
+    const out: Date[] = [];
+    for (let i = 0; i < 14 && out.length < count; i++) {
+      const y = today.getFullYear() + Math.floor((today.getMonth() + i) / 12);
+      const m = (today.getMonth() + i) % 12;
+      for (const d of fn(y, m)) if (d >= today && out.length < count) out.push(d);
+    }
+    return out;
+  };
+  document.querySelectorAll<HTMLElement>('[data-next-classes] [data-rule]').forEach((el) => {
+    const rule = el.dataset.rule;
+    if (rule === 'ltc') {
+      const [d] = upcoming((y, m) => [nth(y, m, 6, 2), nth(y, m, 6, 4)], 1);
+      const holiday = d.getMonth() >= 10;
+      el.innerHTML = `Next: ${fmt(d)}<small>${holiday ? 'Holiday months vary. Call to confirm.' : 'Then every 2nd and 4th Saturday'}</small>`;
+    } else if (rule === 'requal') {
+      const [d] = upcoming((y, m) => [nth(y, m, 2, 2)], 1);
+      el.innerHTML = `Next: ${fmt(d)}<small>Call to confirm</small>`;
+    } else if (rule === 'security') {
+      // Level 2/3 run in odd months: Jan, Mar, May, Jul, Sep, Nov.
+      let m = today.getMonth();
+      let y = today.getFullYear();
+      if (m % 2 === 1) { m += 1; if (m > 11) { m = 0; y += 1; } }
+      const label = new Date(y, m, 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+      el.innerHTML = `Next: ${label}<small>Call for exact dates</small>`;
+    }
+  });
+</script>

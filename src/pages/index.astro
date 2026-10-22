@@ -1,0 +1,164 @@
+---
+import Base from '../layouts/Base.astro';
+import Targets from '../components/Targets.astro';
+import NextClasses from '../components/NextClasses.astro';
+import Faqs from '../components/Faqs.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { site, fullAddress } from '../data/site';
+import { classes } from '../data/classes';
+import { areas } from '../data/areas';
+import { faqs } from '../data/faqs';
+import { img } from '../data/images';
+import { faqSchema, personSchema } from '../data/schema';
+
+const colors = ['var(--t-orange)', 'var(--t-green)', 'var(--t-black)', 'var(--t-blue)', 'var(--t-red)', 'var(--t-orange)'];
+const hero = img('targetWall');
+const room = img('laser');
+const grads = img('graduates');
+const homeFaqs = faqs.slice(0, 5);
+---
+<Base
+  title="Security Guard & LTC Classes in Longview, TX | Prepared Advantage"
+  description="Veteran-owned security officer and firearms training in Longview, TX. Level 2 and 3 security, LTC, permitless carry and private handgun classes. (903) 238-5483."
+  schema={[personSchema(), faqSchema(homeFaqs)]}
+>
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div class="hero__copy">
+        <Targets size="44px" />
+        <h1 style="margin-top:22px">Security officer and handgun training in Longview, Texas</h1>
+        <p class="lede">Get your Texas security license or your License to Carry from an instructor who has taught Texans to shoot safely since 1995.</p>
+        <ul class="hero__creds">
+          <li style="--dot:var(--t-orange)">TCOLE-certified firearms instructor</li>
+          <li style="--dot:var(--t-green)">NRA Certified Range Safety Officer</li>
+          <li style="--dot:var(--t-blue)">Former Dallas police officer and constable</li>
+          <li style="--dot:var(--t-red)">Locally and veteran-owned since 2011</li>
+        </ul>
+        <div class="btn-row">
+          <a class="btn btn--primary" href={site.phoneHref}>Call {site.phone}</a>
+          <a class="btn btn--ghost" href="/schedule/">See the class schedule</a>
+        </div>
+      </div>
+      <div class="hero__photo">
+        <img src={hero.src} alt={hero.alt} width="1600" height="900" fetchpriority="high" />
+      </div>
+    </div>
+    <div class="stripe" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+  </section>
+
+  <section class="section section--concrete">
+    <div class="wrap split split--wide-text" style="align-items:start">
+      <div>
+        <h2>Upcoming classes</h2>
+        <p class="lede">Classes run on a set rhythm every month, so you can plan ahead. Call to reserve your seat.</p>
+        <p>
+          <span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <strong>{site.googleRating}</strong> from <a href={site.googleMaps} target="_blank" rel="noopener">{site.googleReviewCount} Google reviews</a>
+        </p>
+        <div class="btn-row"><a class="btn btn--primary" href={site.phoneHref}>Reserve a seat</a><a class="btn btn--ghost" href="/schedule/">Full schedule</a></div>
+      </div>
+      <NextClasses />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Classes</h2>
+      <p class="lede">Every class is recognized by the State of Texas and taught by Don Radcliffe.</p>
+      <div class="classes-grid" style="margin-top:32px">
+        {classes.map((c, i) => (
+          <a class="class-card" href={`/classes/${c.slug}/`} style={`--c:${colors[i]}`}>
+            <h3>{c.name}</h3>
+            <p>{c.summary}</p>
+            <div class="class-card__meta">
+              <span class="muted">{c.hours}</span>
+              {c.price ? <span class="class-card__price">{c.price}</span> : <span class="muted">Call for price</span>}
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--steel">
+    <div class="wrap split">
+      <img src={room.src} alt={room.alt} width="1200" height="900" loading="lazy" />
+      <div>
+        <h2>The laser training range</h2>
+        <p class="lede">Our classroom has a laser range, which Don says is the only one in East Texas.</p>
+        <p>New shooters practice grip, sight alignment and trigger control on the laser range before they ever fire a live round. Don has seen live-fire scores improve by up to 30% after about 10 minutes on it, and first-time shooters get ready to qualify for their LTC in the same short session.</p>
+        <a class="btn btn--primary" href="/classes/texas-license-to-carry/">About the LTC class</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div>
+        <h2>Meet your instructor</h2>
+        <p class="lede">Don Radcliffe teaches every class himself.</p>
+        <p>Don is a former Dallas police officer and former Dallas County constable. He has been a Texas handgun license instructor since September 1995 and a Texas Level 3 security instructor since June 2010. He is a TCOLE-certified firearms instructor and NRA Certified Range Safety Officer, holds an Intermediate Peace Officer certification and is a graduate of the Dale Carnegie public speaking course. His range safety officer is also NRA certified.</p>
+        <a class="btn btn--ghost" href="/about/">More about Don and the academy</a>
+      </div>
+      <img src={grads.src} alt={grads.alt} width="1200" height="900" loading="lazy" />
+    </div>
+  </section>
+
+  <section class="section section--concrete">
+    <div class="wrap">
+      <div class="rating-line">
+        <strong>{site.googleRating}</strong>
+        <span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <a href={site.googleMaps} target="_blank" rel="noopener">{site.googleReviewCount} reviews on Google</a>
+      </div>
+      <h2 style="margin-top:12px">What students say</h2>
+      <div class="reviews">
+        <figure class="review">
+          <blockquote>"Friendly atmosphere and comfortable training room."</blockquote>
+          <cite><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> Google review</cite>
+        </figure>
+        <figure class="review">
+          <blockquote>"Very hands on and to the point."</blockquote>
+          <cite><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> Google review</cite>
+        </figure>
+        <figure class="review">
+          <blockquote>"I am new to the gun thing, and this class was so informative!"</blockquote>
+          <cite><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> Google review</cite>
+        </figure>
+        <figure class="review">
+          <blockquote>"Don Radcliffe is one of the most talented teachers I have ever learned from. His academy is a huge asset to East Texas."</blockquote>
+          <cite>Keith Rothra, via Facebook</cite>
+        </figure>
+      </div>
+      <p style="margin-top:24px"><a class="btn btn--ghost" href={site.googleMaps} target="_blank" rel="noopener">Read all reviews on Google</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split" style="align-items:start">
+      <div>
+        <h2>Common questions</h2>
+        <Faqs items={homeFaqs} />
+        <p style="margin-top:20px"><a href="/faq/">See all questions</a></p>
+      </div>
+      <ContactForm />
+    </div>
+  </section>
+
+  <section class="section section--concrete">
+    <div class="wrap split" style="align-items:start">
+      <div>
+        <h2>Students come from all over East Texas</h2>
+        <p class="lede">We are on Old Hwy 80 in west Longview, inside the Macoto Dojo. Students drive in from up to 100 miles away.</p>
+        <p><strong>{fullAddress}</strong><br />{site.locationNote}</p>
+        <div class="btn-row" style="margin-bottom:28px">
+          <a class="btn btn--primary" href={site.googleMaps} target="_blank" rel="noopener">Get directions</a>
+        </div>
+        <ul class="area-list">
+          {areas.map((a) => <li><a href={`/areas/${a.slug}/`}>{a.city}</a> {a.miles > 0 && <span>about {a.miles} mi</span>}</li>)}
+        </ul>
+      </div>
+      <iframe class="map" src={site.mapEmbed} title="Map to Prepared Advantage Academy in Longview, TX" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </section>
+</Base>

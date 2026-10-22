@@ -1,0 +1,26 @@
+---
+import { site } from '../data/site';
+import { classes } from '../data/classes';
+const { heading = 'Reserve a seat or ask a question', selected = '' } = Astro.props as { heading?: string; selected?: string };
+---
+<form class="form" action={`https://formsubmit.co/${site.email}`} method="POST">
+  <h3>{heading}</h3>
+  <p class="muted mt0" style="margin:0">We will call you back. For the fastest answer, call <a href={site.phoneHref}>{site.phone}</a>.</p>
+  <input type="hidden" name="_subject" value="New class inquiry from preparedadvantage.com" />
+  <input type="hidden" name="_next" value={`${site.url}/thanks/`} />
+  <input type="hidden" name="_template" value="table" />
+  <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+  <div class="two">
+    <label>Name<input name="name" autocomplete="name" required /></label>
+    <label>Phone<input name="phone" type="tel" autocomplete="tel" required /></label>
+  </div>
+  <label>Email <small>(optional)</small><input name="email" type="email" autocomplete="email" /></label>
+  <label>Class
+    <select name="class">
+      {classes.map((c) => <option selected={c.slug === selected}>{c.name}</option>)}
+      <option>Not sure yet</option>
+    </select>
+  </label>
+  <label>Message <small>(optional)</small><textarea name="message" rows="3"></textarea></label>
+  <button class="btn btn--primary" type="submit">Request a callback</button>
+</form>

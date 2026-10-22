@@ -1,0 +1,12 @@
+---
+import type { Faq } from '../data/classes';
+const { items } = Astro.props as { items: Faq[] };
+---
+<div class="faq">
+  {items.map((f) => (
+    <details>
+      <summary>{f.q}</summary>
+      <div><p>{f.a}</p></div>
+    </details>
+  ))}
+</div>

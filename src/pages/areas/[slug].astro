@@ -1,0 +1,86 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import Faqs from '../../components/Faqs.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import NextClasses from '../../components/NextClasses.astro';
+import { areas, type Area } from '../../data/areas';
+import { classes } from '../../data/classes';
+import { site, fullAddress } from '../../data/site';
+import { faqSchema } from '../../data/schema';
+
+export function getStaticPaths() {
+  return areas.map((a) => ({ params: { slug: a.slug }, props: { a } }));
+}
+const { a } = Astro.props as { a: Area };
+const home = a.miles === 0;
+const crumbs = [{ name: 'Service areas', href: '/areas/' }, { name: `${a.city}, TX`, href: `/areas/${a.slug}/` }];
+const distance = home ? `right here in ${a.city}` : `about ${a.miles} miles from ${a.city}`;
+const localFaqs = [
+  {
+    q: `Is there a License to Carry class near ${a.city}, TX?`,
+    a: `Yes. Prepared Advantage Academy holds LTC classes the 2nd and 4th Saturday of every month at ${fullAddress}, ${distance}.`,
+  },
+  {
+    q: `Can I get my Texas security guard license near ${a.city}?`,
+    a: `Yes. Level 2 ($100) and Level 3 ($300) security officer classes are held every other month in Longview. A Texas security license lets you work anywhere in the state, including ${a.city} and ${a.county} County.`,
+  },
+  {
+    q: `How do I sign up from ${a.city}?`,
+    a: `Call ${site.phone} to reserve a seat. Payment is made at the time of class, by cash or check.`,
+  },
+];
+const nearbyAreas = areas.filter((o) => o.slug !== a.slug && a.nearby.includes(o.city));
+---
+<Base
+  title={`Security Guard & LTC Classes near ${a.city}, TX`}
+  description={`Texas Level 2 and 3 security and License to Carry classes for ${a.city}, TX students, ${distance} in Longview. Call ${site.phone}.`}
+  crumbs={crumbs}
+  schema={[faqSchema(localFaqs)]}
+>
+  <PageHead
+    title={home ? 'Security guard and LTC classes in Longview, TX' : `Security guard and LTC classes near ${a.city}, TX`}
+    lede={home
+      ? 'Level 2 and Level 3 security officer classes, License to Carry and private firearms training on Old Hwy 80 in Longview.'
+      : `Students from ${a.city} and ${a.county} County train with us in Longview, ${distance}.`}
+    crumbs={crumbs}
+  >
+    <div class="btn-row"><a class="btn btn--primary" href={site.phoneHref}>Call {site.phone}</a></div>
+  </PageHead>
+
+  <section class="section">
+    <div class="wrap split" style="align-items:start">
+      <div>
+        <h2>Getting here from {a.city}</h2>
+        <p>{a.route}</p>
+        <p><strong>{fullAddress}</strong><br />{site.locationNote}</p>
+        <p>{home
+          ? 'Students from all over Gregg County and the rest of East Texas train here.'
+          : `Most of our classes are a single day or a set block of days, so the drive from ${a.city} is easy to plan around. Saturday LTC classes run 8:00 am to 2:30 pm.`}</p>
+        <a class="btn btn--ghost" href={site.googleMaps} target="_blank" rel="noopener">Get directions</a>
+
+        <h2 style="margin-top:48px">Classes for {a.city} students</h2>
+        <ul class="ticks">
+          {classes.map((c) => <li><a href={`/classes/${c.slug}/`}>{c.name}</a>{c.price ? `, ${c.price}` : ''}</li>)}
+        </ul>
+        <p>Every class is taught by Don Radcliffe, a former Dallas police officer and Texas handgun instructor since 1995. A Texas security license lets you work for security companies anywhere in the state, including {a.city}.</p>
+      </div>
+      <div>
+        <NextClasses />
+        <div style="margin-top:20px"><ContactForm heading="Reserve a seat" /></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--concrete">
+    <div class="wrap">
+      <h2>Questions from {a.city} students</h2>
+      <Faqs items={localFaqs} />
+      {nearbyAreas.length > 0 && (
+        <p style="margin-top:28px">Also serving {nearbyAreas.map((n, i) => (
+          <>{i > 0 && ', '}<a href={`/areas/${n.slug}/`}>{n.city}</a></>
+        ))} and <a href="/areas/">the rest of East Texas</a>.</p>
+      )}
+    </div>
+  </section>
+</Base>

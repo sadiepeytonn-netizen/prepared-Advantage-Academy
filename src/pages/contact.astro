@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { site, fullAddress } from '../data/site';
+import { areas } from '../data/areas';
+
+const crumbs = [{ name: 'Contact', href: '/contact/' }];
+---
+<Base
+  title="Contact & Directions | Prepared Advantage Academy, Longview TX"
+  description="Call (903) 238-5483 to sign up for a class. Prepared Advantage Academy, 5914 Old Hwy 80, Longview, TX 75604, inside the Macoto Dojo."
+  crumbs={crumbs}
+>
+  <PageHead title="Contact and directions" lede="The quickest way to sign up is to call. You can also send the form and we will call you back." crumbs={crumbs} />
+
+  <section class="section">
+    <div class="wrap split" style="align-items:start">
+      <div>
+        <dl class="facts">
+          <div><dt>Phone</dt><dd><a href={site.phoneHref}>{site.phone}</a></dd></div>
+          <div><dt>Email</dt><dd><a href={`mailto:${site.email}`}>{site.email}</a></dd></div>
+          <div><dt>Address</dt><dd><a href={site.googleMaps} target="_blank" rel="noopener">{fullAddress}</a><br />{site.locationNote}</dd></div>
+          <div><dt>Hours</dt><dd>By class schedule. Please call to sign up.</dd></div>
+          <div><dt>Payment</dt><dd>Cash or check</dd></div>
+          <div><dt>Facebook</dt><dd><a href={site.facebook} target="_blank" rel="noopener">Prepared Advantage Academy</a></dd></div>
+        </dl>
+        <div class="btn-row" style="margin-top:24px">
+          <a class="btn btn--primary" href={site.phoneHref}>Call {site.phone}</a>
+          <a class="btn btn--ghost" href={site.googleMaps} target="_blank" rel="noopener">Open in Google Maps</a>
+        </div>
+      </div>
+      <ContactForm />
+    </div>
+  </section>
+
+  <section class="section section--concrete">
+    <div class="wrap">
+      <h2>Find us</h2>
+      <iframe class="map" src={site.mapEmbed} title="Map to Prepared Advantage Academy in Longview, TX" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <h2 style="margin-top:56px">Service area</h2>
+      <p>Students drive in from up to {site.serviceRadiusMiles} miles across East Texas, including:</p>
+      <ul class="area-list">
+        {areas.map((a) => <li><a href={`/areas/${a.slug}/`}>{a.city}, TX</a> {a.miles > 0 && <span>about {a.miles} mi</span>}</li>)}
+      </ul>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import { img, galleryKeys } from '../data/images';
+
+const crumbs = [{ name: 'Gallery', href: '/gallery/' }];
+const photos = galleryKeys.map((k) => img(k));
+---
+<Base
+  title="Gallery | Classroom & Laser Range | Prepared Advantage, Longview"
+  description="Photos of the Prepared Advantage Academy classroom, laser training range and security officer and License to Carry classes in Longview, TX."
+  crumbs={crumbs}
+>
+  <PageHead title="Gallery" lede="Our classroom, the laser range, and students in our security and handgun classes. Worried about the paperwork? We help you fill out your applications." crumbs={crumbs} />
+  <section class="section">
+    <div class="wrap gallery">
+      {photos.map((p) => (
+        <figure>
+          <img src={p.src} alt={p.alt} width="1200" height="900" loading="lazy" />
+          <figcaption>{p.alt}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,61 @@
+---
+import Targets from './Targets.astro';
+import { site, fullAddress } from '../data/site';
+import { classes } from '../data/classes';
+const path = Astro.url.pathname;
+const cur = (p: string) => (path === p ? 'page' : undefined);
+---
+<a class="skip" href="#main">Skip to content</a>
+<div class="util">
+  <div class="wrap">
+    <div class="util__left">
+      <a class="util__addr" href={site.googleMaps} target="_blank" rel="noopener">{fullAddress}</a>
+      <a href={site.facebook} target="_blank" rel="noopener">Facebook</a>
+    </div>
+    <a href={site.phoneHref}>Call to reserve a seat: <strong>{site.phone}</strong></a>
+  </div>
+</div>
+<header class="header">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label={`${site.name} home`}>
+      <Targets />
+      <span class="brand__name">Prepared Advantage Academy<small>Veteran-owned firearms and security training, Longview TX</small></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <details>
+        <summary>Classes</summary>
+        <div class="dropdown">
+          <a href="/classes/">All classes</a>
+          {classes.map((c) => <a href={`/classes/${c.slug}/`}>{c.short}</a>)}
+        </div>
+      </details>
+      <a href="/schedule/" aria-current={cur('/schedule/')}>Schedule</a>
+      <a href="/about/" aria-current={cur('/about/')}>About</a>
+      <a href="/faq/" aria-current={cur('/faq/')}>FAQ</a>
+      <a href="/gallery/" aria-current={cur('/gallery/')}>Gallery</a>
+      <a href="/contact/" aria-current={cur('/contact/')}>Contact</a>
+      <a class="btn btn--primary" href={site.phoneHref}>{site.phone}</a>
+    </nav>
+    <details class="menu-toggle">
+      <summary>Menu</summary>
+      <nav class="mobile-nav" aria-label="Mobile">
+        <a href="/classes/">Classes</a>
+        {classes.map((c) => <a class="sub" href={`/classes/${c.slug}/`}>{c.short}</a>)}
+        <a href="/schedule/">Schedule</a>
+        <a href="/about/">About</a>
+        <a href="/faq/">FAQ</a>
+        <a href="/gallery/">Gallery</a>
+        <a href="/contact/">Contact</a>
+        <a class="btn btn--primary" href={site.phoneHref}>Call {site.phone}</a>
+      </nav>
+    </details>
+  </div>
+</header>
+<script>
+  // Close the classes dropdown when clicking elsewhere.
+  document.addEventListener('click', (e) => {
+    document.querySelectorAll('.nav details[open]').forEach((d) => {
+      if (!d.contains(e.target as Node)) d.removeAttribute('open');
+    });
+  });
+</script>

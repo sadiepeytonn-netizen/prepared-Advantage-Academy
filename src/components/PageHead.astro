@@ -1,0 +1,20 @@
+---
+const { title, lede, crumbs = [] } = Astro.props as { title: string; lede?: string; crumbs?: { name: string; href: string }[] };
+---
+<section class="page-head">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      {crumbs.map((c, i) => (
+        <>
+          <span aria-hidden="true">/</span>
+          {i === crumbs.length - 1 ? <span aria-current="page">{c.name}</span> : <a href={c.href}>{c.name}</a>}
+        </>
+      ))}
+    </nav>
+    <h1>{title}</h1>
+    {lede && <p class="lede">{lede}</p>}
+    <slot />
+  </div>
+</section>
+<div class="stripe" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>

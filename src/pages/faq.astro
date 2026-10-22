@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Faqs from '../components/Faqs.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { faqs } from '../data/faqs';
+import { faqSchema } from '../data/schema';
+
+const crumbs = [{ name: 'FAQ', href: '/faq/' }];
+---
+<Base
+  title="FAQ | Security Guard & LTC Classes | Prepared Advantage"
+  description="Answers about Texas security guard eligibility, class hours, ammunition, the License to Carry process and signing up for classes at Prepared Advantage Academy."
+  crumbs={crumbs}
+  schema={[faqSchema(faqs)]}
+>
+  <PageHead title="Frequently asked questions" lede="Have a question about a class? Start here, or call us." crumbs={crumbs} />
+  <section class="section">
+    <div class="wrap split" style="align-items:start">
+      <Faqs items={faqs} />
+      <ContactForm heading="Still have a question?" />
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,23 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import { areas } from '../../data/areas';
+import { site } from '../../data/site';
+
+const crumbs = [{ name: 'Service areas', href: '/areas/' }];
+---
+<Base
+  title="Security & LTC Classes for East Texas | Service Areas"
+  description="Students come to Prepared Advantage Academy in Longview from Tyler, Marshall, Kilgore, Henderson, Nacogdoches, Texarkana, Lufkin and across East Texas."
+  crumbs={crumbs}
+>
+  <PageHead title="Training students from across East Texas" lede={`We are in Longview, and students drive in from up to ${site.serviceRadiusMiles} miles away.`} crumbs={crumbs} />
+  <section class="section">
+    <div class="wrap">
+      <ul class="area-list">
+        {areas.map((a) => <li><a href={`/areas/${a.slug}/`}>{a.city}, TX</a> <span>{a.county} County{a.miles > 0 ? `, about ${a.miles} mi` : ''}</span></li>)}
+      </ul>
+      <iframe class="map" style="margin-top:40px" src={site.mapEmbed} title="Map to Prepared Advantage Academy in Longview, TX" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </section>
+</Base>

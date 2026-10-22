@@ -1,0 +1,59 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import NextClasses from '../components/NextClasses.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { site } from '../data/site';
+
+const crumbs = [{ name: 'Schedule', href: '/schedule/' }];
+---
+<Base
+  title="Class Schedule | Security & LTC Classes in Longview, TX"
+  description="LTC and permitless carry classes the 2nd and 4th Saturday monthly. Level 3 requal the 2nd Tuesday. Level 2 and 3 security every other month. (903) 238-5483."
+  crumbs={crumbs}
+>
+  <PageHead title="Class schedule" lede="Classes follow the same pattern every month. Call to reserve your seat so we know you are coming." crumbs={crumbs}>
+    <div class="btn-row"><a class="btn btn--primary" href={site.phoneHref}>Call {site.phone}</a></div>
+  </PageHead>
+
+  <section class="section section--concrete">
+    <div class="wrap split" style="align-items:start">
+      <div>
+        <h2 class="mt0">Next dates</h2>
+        <p>The dates below are worked out from our regular schedule. Dates can change, so please call to confirm before class.</p>
+        <NextClasses />
+      </div>
+      <ContactForm heading="Reserve a seat" />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>How the schedule works</h2>
+      <div class="creds">
+        <div class="cred" style="--c:var(--t-orange)">
+          <strong>License to Carry and permitless carry</strong>
+          <span>The 2nd and 4th Saturday of every month, 8:00 am to 2:30 pm. November and December vary because of the holidays.</span>
+        </div>
+        <div class="cred" style="--c:var(--t-green)">
+          <strong>Level 3 requalification</strong>
+          <span>The 2nd Tuesday of each month when practical, 9:00 am to 2:30 pm.</span>
+        </div>
+        <div class="cred" style="--c:var(--t-blue)">
+          <strong>Level 2 security, $100</strong>
+          <span>Every other month starting in January. One day, Wednesday, 9:00 am to 2:30 pm.</span>
+        </div>
+        <div class="cred" style="--c:var(--t-black)">
+          <strong>Level 3 security, $300</strong>
+          <span>Follows Level 2: Thursday and Friday, then Monday through Wednesday of the next week, 8:00 am to about 5:00 pm. Includes pepper spray certification.</span>
+        </div>
+        <div class="cred" style="--c:var(--t-red)">
+          <strong>Private training</strong>
+          <span>Any time. Basic handgun and one-on-one lessons are scheduled around you.</span>
+        </div>
+      </div>
+      <p style="margin-top:40px">Payment is due at the time of class, by cash or check. Students do not need to bring anything or complete paperwork before the Level 3 class. There are no evening classes.</p>
+      <p>Questions? Email <a href={`mailto:${site.email}`}>{site.email}</a> or call <a href={site.phoneHref}>{site.phone}</a>.</p>
+    </div>
+  </section>
+</Base>

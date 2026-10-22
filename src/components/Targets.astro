@@ -1,0 +1,12 @@
+---
+// The row of colored silhouette targets from the academy's classroom wall. Used as the logo mark.
+const colors = ['var(--t-orange)', 'var(--t-green)', '#0f1214', 'var(--t-blue)', 'var(--t-red)'];
+const { size } = Astro.props as { size?: string };
+---
+<span class="targets" aria-hidden="true" style={size ? `font-size:${size}` : undefined}>
+  {colors.map((c) => (
+    <svg viewBox="0 0 31 50" fill={c}>
+      <path d="M15.5 0a7 7 0 0 1 7 7.4c0 3.1-1.6 5.6-3.6 6.5v1.3c5.6.8 9.6 3.6 10.6 8.4l1 26.4H.5l1-26.4c1-4.8 5-7.6 10.6-8.4v-1.3C10 13 8.5 10.5 8.5 7.4A7 7 0 0 1 15.5 0z" />
+    </svg>
+  ))}
+</span>

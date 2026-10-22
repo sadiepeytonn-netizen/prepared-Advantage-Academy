@@ -1,0 +1,63 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import { site } from '../data/site';
+import { img } from '../data/images';
+import { personSchema } from '../data/schema';
+
+const crumbs = [{ name: 'About', href: '/about/' }];
+const a = img('classroom');
+const b = img('exterior');
+---
+<Base
+  title="About Don Radcliffe & Prepared Advantage Academy | Longview, TX"
+  description="Veteran-owned since 2011. Don Radcliffe is a former Dallas police officer and constable, Texas handgun instructor since 1995 and TCOLE-certified instructor."
+  crumbs={crumbs}
+  schema={[personSchema()]}
+>
+  <PageHead title="About the academy" lede="Locally and veteran-owned, teaching security officers and armed citizens in Longview since 2011." crumbs={crumbs} />
+
+  <section class="section">
+    <div class="wrap split">
+      <div>
+        <h2>Don Radcliffe</h2>
+        <p class="lede">Firearm and classroom instructor</p>
+        <p>Don is a former Dallas police officer and former Dallas County constable. He has been a Texas handgun license instructor since September 1995 and a Texas Level 3 security instructor since June 2010.</p>
+        <p>He is a TCOLE-certified firearms instructor and an NRA Certified Range Safety Officer, maintains an Intermediate Peace Officer certification, and is a graduate of the Dale Carnegie public speaking course. The range safety officer who works with Don is NRA certified as well.</p>
+        <p>Don teaches every class at the academy himself.</p>
+      </div>
+      <img src={a.src} alt={a.alt} width="1200" height="900" loading="lazy" />
+    </div>
+  </section>
+
+  <section class="section section--steel">
+    <div class="wrap">
+      <h2>Our motto</h2>
+      <p class="lede" style="font-size:1.5rem;max-width:44ch;color:#fff">"Two rounds on color and you have accomplished an attitude adjustment to your opponent that may save your life in a critical situation."</p>
+      <div class="creds">
+        <div class="cred" style="--c:var(--t-orange)"><strong>Since 2011</strong><span>Serving Longview and East Texas</span></div>
+        <div class="cred" style="--c:var(--t-green)"><strong>Veteran-owned</strong><span>Locally owned and operated</span></div>
+        <div class="cred" style="--c:var(--t-blue)"><strong>Laser training range</strong><span>The only one in East Texas</span></div>
+        <div class="cred" style="--c:var(--t-red)"><strong>Licensed by Texas DPS</strong><span>License numbers {site.licenseNumbers.join(' and ')}</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <img src={b.src} alt={b.alt} width="1200" height="900" loading="lazy" />
+      <div>
+        <h2>At a glance</h2>
+        <dl class="facts">
+          <div><dt>Classes</dt><dd>Level 2 and Level 3 security officer, Level 3 requalification, License to Carry, permitless carry, private and basic handgun</dd></div>
+          <div><dt>Also</dt><dd>Pepper spray certification</dd></div>
+          <div><dt>Payment</dt><dd>Cash or check</dd></div>
+          <div><dt>Language</dt><dd>English</dd></div>
+          <div><dt>Hours</dt><dd>By class schedule. Please call to sign up.</dd></div>
+        </dl>
+        <h3 style="margin-top:32px">A note on certificates</h3>
+        <p>No one but Don Radcliffe teaches classes under the name Prepared Advantage Academy. Any certificate from the academy with a different instructor's name on it is a forgery.</p>
+      </div>
+    </div>
+  </section>
+</Base>

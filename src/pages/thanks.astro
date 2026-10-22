@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import { site } from '../data/site';
+---
+<Base title="Thanks | Prepared Advantage Academy" description="Your message was sent." noindex>
+  <PageHead title="Message sent" lede="Thanks. We will call you back soon. Need an answer now? Call us." crumbs={[{ name: 'Thanks', href: '/thanks/' }]}>
+    <div class="btn-row"><a class="btn btn--primary" href={site.phoneHref}>Call {site.phone}</a><a class="btn btn--ghost" href="/schedule/">See the schedule</a></div>
+  </PageHead>
+</Base>

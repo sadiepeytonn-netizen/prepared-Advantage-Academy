@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import { site } from '../data/site';
+---
+<Base title="Page not found | Prepared Advantage Academy" description="That page does not exist." noindex>
+  <PageHead title="That page does not exist" lede="It may have moved when we rebuilt the site. Try the class list or the schedule, or give us a call." crumbs={[{ name: 'Not found', href: '/404/' }]}>
+    <div class="btn-row"><a class="btn btn--primary" href="/classes/">See classes</a><a class="btn btn--ghost" href={site.phoneHref}>Call {site.phone}</a></div>
+  </PageHead>
+</Base>

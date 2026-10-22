@@ -1,0 +1,10 @@
+{
+  "trailingSlash": true,
+  "redirects": [
+    { "source": "/security-guard-firearm-instruction-classes", "destination": "/classes/", "permanent": true },
+    { "source": "/class-schedule", "destination": "/schedule/", "permanent": true },
+    { "source": "/faqs", "destination": "/faq/", "permanent": true },
+    { "source": "/request-callback-form", "destination": "/contact/", "permanent": true },
+    { "source": "/hibu-video-splash", "destination": "/", "permanent": true }
+  ]
+}

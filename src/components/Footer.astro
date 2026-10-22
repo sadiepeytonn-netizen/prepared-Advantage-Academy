@@ -1,0 +1,64 @@
+---
+import { site, fullAddress } from '../data/site';
+import { classes } from '../data/classes';
+import { areas } from '../data/areas';
+const year = new Date().getFullYear();
+---
+<section class="cta-band">
+  <div class="wrap">
+    <div>
+      <h2>Seats are limited. Call to reserve yours.</h2>
+      <p>Classes are paid at the time of class, by cash or check.</p>
+    </div>
+    <div class="btn-row">
+      <a class="btn btn--light" href={site.phoneHref}>Call {site.phone}</a>
+      <a class="btn btn--ghost" href="/contact/">Request a callback</a>
+    </div>
+  </div>
+</section>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div>
+        <h3>{site.name}</h3>
+        <p>Locally and veteran-owned security officer and firearms training in Longview, Texas, since {site.founded}.</p>
+        <p>
+          <a href={site.googleMaps} target="_blank" rel="noopener">{fullAddress}</a><br />
+          {site.locationNote}<br />
+          <a href={site.phoneHref}>{site.phone}</a><br />
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </p>
+        <p>Texas DPS license numbers {site.licenseNumbers.join(' and ')}</p>
+      </div>
+      <div>
+        <h3>Classes</h3>
+        <ul>{classes.map((c) => <li><a href={`/classes/${c.slug}/`}>{c.short}</a></li>)}</ul>
+      </div>
+      <div>
+        <h3>Students from</h3>
+        <ul>{areas.slice(0, 10).map((a) => <li><a href={`/areas/${a.slug}/`}>{a.city}, TX</a></li>)}</ul>
+        <p style="margin-top:8px"><a href="/areas/">All service areas</a></p>
+      </div>
+      <div>
+        <h3>Academy</h3>
+        <ul>
+          <li><a href="/schedule/">Class schedule</a></li>
+          <li><a href="/about/">About Don Radcliffe</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/gallery/">Gallery</a></li>
+          <li><a href="/contact/">Contact</a></li>
+          <li><a href={site.googleMaps} target="_blank" rel="noopener">Google reviews</a></li>
+          <li><a href={site.facebook} target="_blank" rel="noopener">Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__base">
+      <span>&copy; {year} {site.name}. All rights reserved.</span>
+      <span>Hours: by class schedule. Please call to sign up.</span>
+    </div>
+  </div>
+</footer>
+<div class="callbar">
+  <a href={site.phoneHref}>Call now</a>
+  <a href="/schedule/">Schedule</a>
+</div>

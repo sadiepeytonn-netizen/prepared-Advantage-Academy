@@ -1,0 +1,55 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import { classes } from '../../data/classes';
+import { site } from '../../data/site';
+import { img } from '../../data/images';
+
+const colors = ['var(--t-orange)', 'var(--t-green)', 'var(--t-black)', 'var(--t-blue)', 'var(--t-red)', 'var(--t-orange)'];
+const crumbs = [{ name: 'Classes', href: '/classes/' }];
+const room = img('classroom');
+const itemList = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  itemListElement: classes.map((c, i) => ({ '@type': 'ListItem', position: i + 1, url: `${site.url}/classes/${c.slug}/`, name: c.name })),
+};
+---
+<Base
+  title="Security Guard & Firearms Classes in Longview, TX"
+  description="Texas Level 2 and Level 3 security officer classes, Level 3 requalification, License to Carry (LTC), permitless carry and private handgun training in Longview, TX."
+  crumbs={crumbs}
+  schema={[itemList]}
+>
+  <PageHead title="Security guard and firearms classes" lede="Every class is recognized by the State of Texas. Once you hold a Texas security license, you can work anywhere in the state." crumbs={crumbs} />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="classes-grid">
+        {classes.map((c, i) => (
+          <a class="class-card" href={`/classes/${c.slug}/`} style={`--c:${colors[i]}`}>
+            <h3>{c.name}</h3>
+            <p>{c.summary}</p>
+            <div class="class-card__meta">
+              <span class="muted">{c.hours}</span>
+              {c.price ? <span class="class-card__price">{c.price}</span> : <span class="muted">Call for price</span>}
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--concrete">
+    <div class="wrap split">
+      <div>
+        <h2>Which class do I need?</h2>
+        <p><strong>To work unarmed security,</strong> take the one-day <a href="/classes/level-2-security-guard/">Level 2 class</a>.</p>
+        <p><strong>To work armed security,</strong> take the <a href="/classes/level-3-armed-security-officer/">Level 3 class</a>, the highest security certification in Texas. Already commissioned? Keep it current with <a href="/classes/level-3-requalification/">requalification</a>.</p>
+        <p><strong>To carry for personal protection,</strong> take the <a href="/classes/texas-license-to-carry/">License to Carry class</a>, or <a href="/classes/permitless-carry-training/">permitless carry training</a> if you plan to carry without a license.</p>
+        <p><strong>Never handled a gun?</strong> Start with <a href="/classes/private-firearms-training/">basic handgun or private training</a>.</p>
+        <p>Not sure? Call <a href={site.phoneHref}>{site.phone}</a> and Don will point you to the right class.</p>
+      </div>
+      <img src={room.src} alt={room.alt} width="1200" height="900" loading="lazy" />
+    </div>
+  </section>
+</Base>
